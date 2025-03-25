@@ -9,13 +9,20 @@ numbers = []
 holder = None
 
 def button_click(num):
+
     if e.get() == " + ":
         e.delete(0, END)
 
     e.insert(END, num)
 
 def button_clear_fun():
+
     e.delete(0,END)
+     
+    for n in numbers:
+        numbers.pop()
+
+    holder = None
 
 def button_plus():
     numbers.append(int(e.get()))
@@ -24,12 +31,18 @@ def button_plus():
 
 
 
-def button_equal_fun(numbers):
+def button_equal_fun():
     numbers.append(int(e.get()))
+
     e.delete(0,END)
+
     total = 0
-    for n in numbers:
+
+    for n in reversed(numbers):
         total += n
+        numbers.pop()
+
+    holder = total
 
     e.insert(0, total)
     
@@ -47,7 +60,7 @@ button_0 = Button(root, text="0", padx=40,pady=20,command=lambda: button_click(0
 
 button_add = Button(root, text="+", padx=39,pady=20,command=lambda: button_plus())
 button_clear = Button(root, text="Clear", padx=79,pady=20,command=lambda: button_clear_fun())
-button_equal = Button(root, text="=", padx=91,pady=20,command=lambda: button_equal_fun(numbers))
+button_equal = Button(root, text="=", padx=91,pady=20,command=lambda: button_equal_fun())
 
 button_1.grid(row=3, column=0)
 button_2.grid(row=3, column=1)
