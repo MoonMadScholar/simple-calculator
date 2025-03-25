@@ -1,7 +1,7 @@
 from tkinter import *
 
 root = Tk()
-
+root.title("Simple calculator")
 e = Entry(root, width=35, borderwidth=5)
 e.grid(row=0,column=0, columnspan=3,padx=10,pady=10)
 
@@ -9,33 +9,32 @@ numbers = []
 holder = None
 
 def button_click(num):
-
+    n = None
     if e.get() == " + ":
         e.delete(0, END)
-
-    e.insert(END, num)
+    else:
+        e.insert(END, num)
+        n = int(e.get().replace(",",""))
+        e.delete(0,END)
+        e.insert(0,f"{n:,}")
 
 def button_clear_fun():
-
-    e.delete(0,END)
-     
+    e.delete(0,END) 
     for n in numbers:
         numbers.pop()
 
     holder = None
 
 def button_plus():
-    numbers.append(int(e.get()))
+    numbers.append(int(e.get().replace(",","")))
     e.delete(0,END)
     e.insert(0, " + ")
 
 
 
 def button_equal_fun():
-    numbers.append(int(e.get()))
-
+    numbers.append(int(e.get().replace(",","")))
     e.delete(0,END)
-
     total = 0
 
     for n in reversed(numbers):
@@ -43,8 +42,7 @@ def button_equal_fun():
         numbers.pop()
 
     holder = total
-
-    e.insert(0, total)
+    e.insert(0, f"{total:,}")
     
 
 button_1 = Button(root, text="1", padx=40,pady=20,command=lambda: button_click(1))
